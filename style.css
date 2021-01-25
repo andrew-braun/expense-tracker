@@ -1,9 +1,31 @@
+/* General styles */
+
+:root {
+	--light-1-t: hsla(0, 0%, 95%, 0.7);
+	--light-1-t-2: hsla(0, 0%, 95%, 0.8);
+	--positive-1: hsla(110, 50%, 20%, 0.5);
+	--negative-1: hsla(0, 100%, 50%, 0.5);
+	--accent-1: hsla(201, 90%, 29%, 1);
+	--accent-1-t: hsla(201, 90%, 29%, 0.7);
+}
+
 * {
 	box-sizing: border-box;
 }
 
 html {
 	font-size: 10px;
+}
+
+.btn {
+	padding: 1rem;
+	border: none;
+	transition: background 0.2s ease-in-out, filter 0.2s ease-in-out;
+}
+
+.btn:hover {
+	cursor: pointer;
+	filter: brightness(1.2);
 }
 
 body {
@@ -22,17 +44,114 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 1rem;
 	border-radius: 1rem;
-	background: hsla(0, 0%, 95%, 0.7);
+	background: var(--light-1-t);
 }
 
-.transaction-container {
+// Style
+.balance-container {
 	display: flex;
+	text-align: center;
 }
 
-.transaction {
+.total {
+	display: flex;
+	justify-content: space-between;
+	min-width: 20rem;
 	padding: 1rem;
 	border-radius: 0.3rem;
-	background: hsla(0, 0%, 100%, 0.8);
+	background: var(--light-1-t-2);
+}
+
+.positive-cash {
+	background: var(--positive-1);
+	color: white;
+}
+
+.negative-cash {
+	background: var(--negative-1);
+	color: white;
+}
+
+/* Transaction history */
+
+.history-list {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	margin: 0;
+	padding: 1rem 0;
+	list-style: none;
+	background: var(--accent-1-t);
+}
+
+.history-list-item {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	width: clamp(20rem, 25rem, 90%);
+	padding: 1rem;
+	background: var(--light-1-t);
+}
+
+.delete-btn {
+	border: 0;
+	background: red;
+	border-radius: 0.3rem;
+}
+
+.delete-btn:hover {
+	cursor: pointer;
+	opacity: 0.6;
+}
+
+.form-control {
+	margin: 1.5rem 0;
+}
+
+/* Add transaction */
+
+.transaction-input-form {
+	padding: 1rem;
+}
+
+.description-input {
+	padding: 0.5rem;
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	border-color: black;
+	background: transparent;
+}
+
+.transaction-button {
+	min-width: 4.5rem;
+	padding: 0.5rem 1rem;
+	border: none;
+	font-weight: 800;
+	font-size: 2rem;
+}
+
+.transaction-button:hover {
+	opacity: 0.8;
+}
+
+.transaction-button-positive {
+	background: var(--positive-1);
+}
+
+.transaction-button-negative {
+	background: var(--negative-1);
+}
+
+.transaction-input__amount {
+	border: none;
+	padding: 1rem;
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	border-color: black;
+	background: transparent;
+}
+
+.transaction-submit-button {
+	width: 100%;
 }
