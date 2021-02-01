@@ -6,7 +6,7 @@
 	--positive-1: hsla(110, 50%, 20%, 0.5);
 	--positive-2: hsla(110, 50%, 20%, 0.7);
 	--negative-1: hsla(0, 100%, 50%, 0.5);
-	--negative-2: hsla(0, 100%, 50%, 0.7);
+	--negative-2: hsla(0, 100%, 50%, 0.6);
 	--accent-1: hsla(201, 90%, 29%, 1);
 	--accent-1-t: hsla(201, 90%, 29%, 0.7);
 }
@@ -22,12 +22,12 @@ html {
 .btn {
 	padding: 1rem;
 	border: none;
-	transition: background 0.2s ease-in-out, filter 0.2s ease-in-out;
+	transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
 
 .btn:hover {
 	cursor: pointer;
-	filter: brightness(1.2);
+	opacity: 0.8;
 }
 
 body {
@@ -51,16 +51,21 @@ body {
 	background: var(--light-1-t);
 }
 
-// Style
+/* Main info section */
+
 .balance-container {
 	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
 	text-align: center;
 }
 
 .total {
 	display: flex;
 	justify-content: space-between;
-	min-width: 20rem;
+	width: clamp(28rem, 80%, 40rem);
 	padding: 1rem;
 	border-radius: 0.3rem;
 	background: var(--light-1-t-2);
@@ -95,8 +100,13 @@ body {
 	width: clamp(20rem, 80%, 90%);
 	background: var(--light-1-t);
 }
+
 .history-list-item__text {
-	padding: 1rem;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	width: 100%;
+	padding: 1rem 5rem 1rem 1rem;
 }
 
 .history-list-item__label {
@@ -109,14 +119,17 @@ body {
 	border: 0;
 	background: var(--light-1-t);
 	font-size: 2rem;
+	transition-duration: 0.3s;
+	transition-timing-function: ease-in-out;
 }
 
 .delete-btn:hover {
 	cursor: pointer;
-	filter: brightness(1.5);
+	opacity: 0.8;
 	border-color: white;
 	border-style: solid;
 	border-width: 2px 2px 2px 0;
+	font-size: 170%;
 }
 
 .positive {
@@ -206,4 +219,12 @@ body {
 	width: 100%;
 	font-size: 2rem;
 	min-height: 5rem;
+	transition: transform 0.3s ease-in-out, color 0.3s ease-in-out,
+		background 0.3s ease-in-out;
+}
+
+.transaction-submit-button:hover {
+	background: hsla(0, 0%, 0%, 0.8);
+	color: white;
+	transform: scale(0.98);
 }
