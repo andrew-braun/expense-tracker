@@ -44,6 +44,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	width: clamp(28rem, 60rem, 85vw);
 	border-radius: 1rem;
 	background: var(--light-1-t);
 }
@@ -89,20 +90,38 @@ body {
 	position: relative;
 	display: flex;
 	justify-content: space-between;
-	width: clamp(20rem, 25rem, 90%);
-	padding: 1rem;
+	width: clamp(20rem, 28rem, 90%);
 	background: var(--light-1-t);
+}
+.history-list-item__text {
+	padding: 1rem;
+}
+
+.history-list-item__label {
+	font-weight: 800;
 }
 
 .delete-btn {
+	display: block;
+	min-width: 4rem;
 	border: 0;
-	background: red;
-	border-radius: 0.3rem;
+	background: var(--light-1-t);
+	font-size: 2rem;
 }
 
 .delete-btn:hover {
 	cursor: pointer;
-	opacity: 0.6;
+	filter: brightness(1.5);
+}
+
+.positive {
+	background: var(--positive-1);
+	color: white;
+}
+
+.negative {
+	background: var(--negative-1);
+	color: white;
 }
 
 .form-control {
