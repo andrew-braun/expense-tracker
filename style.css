@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=MuseoModerno:wght@300;400;500;600&family=Oxygen:wght@300;400;700&display=swap");
+
 /* General styles */
 
 :root {
@@ -9,6 +11,8 @@
 	--negative-2: hsla(0, 100%, 50%, 0.6);
 	--accent-1: hsla(201, 90%, 29%, 1);
 	--accent-1-t: hsla(201, 90%, 29%, 0.7);
+
+	--box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.12), 0 1px 2px hsla(0, 0%, 0%, 0.24);
 }
 
 * {
@@ -16,18 +20,8 @@
 }
 
 html {
+	font-family: "Oxygen";
 	font-size: 10px;
-}
-
-.btn {
-	padding: 1rem;
-	border: none;
-	transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
-}
-
-.btn:hover {
-	cursor: pointer;
-	opacity: 0.8;
 }
 
 body {
@@ -42,6 +36,51 @@ body {
 	font-size: 1.6rem;
 }
 
+input {
+	font-size: 1.8rem;
+	border: 0;
+	transition-duration: 0.3s;
+	transition-timing-function: ease-in-out;
+}
+
+input:hover,
+input:active,
+input:focus {
+	background: hsla(0, 0%, 100%, 0.4);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	padding: 0;
+}
+
+.primary-heading {
+	margin-top: 3rem;
+	margin-bottom: 1.75rem;
+}
+
+.secondary-heading {
+	margin-top: 2rem;
+	margin-bottom: 1.5rem;
+	font-size: 2.5rem;
+}
+
+.btn {
+	padding: 1rem;
+	border: none;
+	transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.btn:hover {
+	cursor: pointer;
+	opacity: 0.8;
+}
+
 .main-container {
 	display: flex;
 	flex-direction: column;
@@ -53,7 +92,35 @@ body {
 
 /* Main info section */
 
-.balance-container {
+.top-info-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+.top-info-container .primary-heading {
+	width: 100%;
+	height: 100%;
+	padding: 2rem;
+	margin: 0;
+	border-radius: 0.2rem;
+	background: var(--accent-1-t);
+	color: white;
+	text-align: center;
+}
+
+.top-info-container__balance-label {
+	margin: 3rem 0 0rem 0;
+}
+
+.balance-total {
+	font-family: "MuseoModerno", "Open Sans";
+	font-size: 4rem;
+	padding: 1rem 0 3rem 0;
+}
+
+.assets-liabilities-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -62,13 +129,35 @@ body {
 	text-align: center;
 }
 
+.assets-liabilities-container__heading {
+	font-size: 1.5rem;
+	padding-bottom: 1rem;
+	text-transform: uppercase;
+}
+
+.assets-liabilities-container__totals {
+	display: flex;
+	width: 80%;
+	margin: 0.5rem 0 3rem 0;
+	padding: 1rem;
+	box-shadow: var(--box-shadow);
+}
+
+.assets-liabilities-container__total-container {
+	width: clamp(12rem, 50%, 25rem);
+	height: clamp(10rem, 12rem, 16rem);
+	margin: 0.2rem;
+}
+
 .total {
 	display: flex;
-	justify-content: space-between;
-	width: clamp(28rem, 80%, 40rem);
+	justify-content: center;
+	align-items: center;
+	height: clamp(6rem, 8rem, 12rem);
 	padding: 1rem;
 	border-radius: 0.3rem;
 	background: var(--light-1-t-2);
+	font-size: 2.5rem;
 }
 
 .positive-cash {
@@ -82,15 +171,22 @@ body {
 }
 
 /* Transaction history */
+.history-list-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	padding-bottom: 1rem;
+	background: var(--accent-1-t);
+}
 
 .history-list {
 	display: flex;
 	justify-content: center;
 	width: 100%;
-	margin: 0;
-	padding: 1rem 0;
+	padding: 0;
 	list-style: none;
-	background: var(--accent-1-t);
 }
 
 .history-list-item {
@@ -126,10 +222,9 @@ body {
 .delete-btn:hover {
 	cursor: pointer;
 	opacity: 0.8;
-	border-color: white;
-	border-style: solid;
-	border-width: 2px 2px 2px 0;
-	font-size: 170%;
+	background: var(--negative-2);
+
+	font-size: 150%;
 }
 
 .positive {
@@ -138,7 +233,7 @@ body {
 }
 
 .negative {
-	background: var(--negative-2);
+	border: 1px solid var(--negative-2);
 	color: white;
 }
 
@@ -153,21 +248,29 @@ body {
 .form-control {
 	display: flex;
 	align-items: center;
-	width: 80%;
+	width: 100%;
 	margin: 1.5rem 0;
 }
 
-.form-control description {
-	flex: 1 1 20%;
+.form-control .label-container {
+	flex: 1 1 30%;
+	width: 30%;
 }
 .form-control input {
-	flex: 1 1 80%;
+	flex: 1 1 70%;
+	width: 70%;
 }
 
 .form-control .transaction-button {
 	margin: 0.2rem;
 }
 /* Add transaction */
+
+.new-transaction-container {
+	width: 100%;
+	text-align: center;
+	box-shadow: var(--box-shadow);
+}
 
 .transaction-input-form {
 	display: flex;
@@ -176,6 +279,16 @@ body {
 	flex: 1 1 auto;
 	padding: 1rem;
 	min-width: 100%;
+}
+
+.label-container {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+}
+
+.transaction-input-form input {
+	border-radius: 0.4rem 0.4rem 0 0;
 }
 
 .description-input {
@@ -188,7 +301,7 @@ body {
 
 .transaction-button {
 	min-width: 4.5rem;
-	padding: 0.5rem 1rem;
+	padding: 0.7rem 0.7rem;
 	border: none;
 	font-weight: 800;
 	font-size: 2rem;
@@ -219,6 +332,7 @@ body {
 	width: 100%;
 	font-size: 2rem;
 	min-height: 5rem;
+	background: hsla(0, 0%, 0%, 0.2);
 	transition: transform 0.3s ease-in-out, color 0.3s ease-in-out,
 		background 0.3s ease-in-out;
 }

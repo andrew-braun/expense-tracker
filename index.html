@@ -6,40 +6,91 @@
 		<title>Expense Tracker</title>
 		<link rel="stylesheet" href="style.css" />
 	</head>
+
 	<body>
 		<div class="main-container">
-			<h2>Expense Tracker</h2>
-			<h1 id="balance">$0.00</h1>
-			<div class="balance-container">
-				<h4>Assets/Liabilities</h4>
-				<p id="positive-cash" class="total positive-cash"><span class="balance-symbol">+</span>$0.00</p>
-				<p id="negative-cash" class="total negative-cash"><span class="balance-symbol">-</span>$0.00</p>
-            </div>
-            <h3>History</h3>
-            <ul id="history-list" class="history-list">
-                <li class="history-list-item negative">
-					<span class="history-list-item__text">
-						<span class="history-list-item__amount">$400</span>
-						<span class="history-list-item__label">Cash</span>
-						
-					</span>
-					<button class="delete-btn">X</button></span></li>
-            </ul>
-            <h3>Add New Transaction</h3>
-            <form action="" class="transaction-input-form" id="transaction-input-form">
-                <div class="form-control">
-                    <label for="transaction-input__text">Description</label>
-                    <input type="text" class="description-input" id="transaction-input-text" placeholder="Enter description...">
-                </div>
-                <div class="form-control">
-					<button class="btn transaction-button transaction-button-positive">+</button>
-					<button class="btn transaction-button transaction-button-negative">-</button>
-                    <label for="transaction-input__amount"></label>
-                    <input type="number" class="transaction-input__amount" id="transaction-input__amount" placeholder="Enter amount..." step="any">
-                </div>
-                <button class="btn transaction-submit-button">Add Transaction</button>
-            </form>
+			<div class="top-info-container">
+				<h1 class="primary-heading" id="main-heading">Expense Tracker</h1>
+				<h3 class="top-info-container__balance-label">Your Balance</h3>
+				<div class="balance-total" id="balance">$0.00</div>
+			</div>
+			<div class="assets-liabilities-container">
+				<div class="assets-liabilities-container__totals">
+					<div class="assets-liabilities-container__total-container">
+						<div class="assets-liabilities-container__heading">Income</div>
+						<div id="positive-cash" class="total positive-cash">
+							<span class="balance-symbol">+&nbsp;</span>
+							<span class="assets-liabilities-container__amount">$0.00</span>
+						</div>
+					</div>
+
+					<div class="assets-liabilities-container__total-container">
+						<div class="assets-liabilities-container__heading">Expenses</div>
+						<div id="negative-cash" class="total negative-cash">
+							<span class="balance-symbol">-&nbsp;</span
+							><span class="assets-liabilities-container__amount">$0.00</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="history-list-container">
+				<h3 class="secondary-heading">History</h3>
+				<ul id="history-list" class="history-list">
+					<li class="history-list-item negative">
+						<span class="history-list-item__text">
+							<span class="history-list-item__amount">$400</span>
+							<span class="history-list-item__label">Cash</span>
+						</span>
+						<button class="delete-btn">X</button>
+					</li>
+				</ul>
+			</div>
+			<div class="new-transaction-container">
+				<h3 class="secondary-heading">Add New Transaction</h3>
+				<form
+					action=""
+					class="transaction-input-form"
+					id="transaction-input-form"
+				>
+					<div class="form-control">
+						<div class="label-container">
+							<label for="transaction-input__text">Description</label>
+						</div>
+						<input
+							type="text"
+							class="description-input"
+							id="transaction-input-text"
+							placeholder="Enter description..."
+						/>
+					</div>
+					<div class="form-control">
+						<div class="label-container">
+							<button
+								class="btn transaction-button transaction-button-positive"
+							>
+								+
+							</button>
+							<button
+								class="btn transaction-button transaction-button-negative"
+							>
+								-
+							</button>
+							<label for="transaction-input__amount"></label>
+						</div>
+						<input
+							type="number"
+							class="transaction-input__amount"
+							id="transaction-input__amount"
+							placeholder="Enter amount..."
+							step="any"
+						/>
+					</div>
+					<button class="btn transaction-submit-button">Add Transaction</button>
+				</form>
+			</div>
 		</div>
+
 		<script src="script.js"></script>
 	</body>
 </html>
