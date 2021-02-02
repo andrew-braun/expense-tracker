@@ -15,10 +15,11 @@ const transactionButtonPositive = document.querySelector(
 const transactionButtonNegative = document.querySelector(
 	".transaction-button-negative"
 );
-const descriptionInput = document.querySelector("#description-input");
+const transactionInputText = document.querySelector("#transaction-input-text");
 const transactionInputAmount = document.querySelector(
 	"#transaction-input-amount"
 );
+const transactionSubmit = document.querySelector(".transaction-submit-button");
 
 /* State management */
 const dummyTransactions = [
@@ -121,7 +122,25 @@ function handleItemInteraction(event) {
 
 function init() {
 	historyList.innerHTML = "";
+	resetAddTransaction();
 	renderTransactionList(dummyTransactions);
+}
+
+function resetAddTransaction() {
+	transactionInputText.value = "";
+	transactionInputAmount.value = 0;
+}
+function handleTransactionSubmit(event) {
+	/* Build a transaction object, add to local storage, and render it to the DOM */
+
+	const transactionObject = {
+		description: transactionInputText.value,
+		amount: transactionInputAmount.value,
+	};
+
+	renderTransaction(transactionObject);
+
+	resetAddTransaction();
 }
 
 init();
@@ -142,3 +161,5 @@ transactionButtonNegative.addEventListener(
 	"click",
 	handleTransactionSignChange
 );
+
+transactionSubmit.addEventListener("click", handleTransactionSubmit);
