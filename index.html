@@ -12,23 +12,23 @@
 			<div class="top-info-container">
 				<h1 class="primary-heading" id="main-heading">Expense Tracker</h1>
 				<h3 class="top-info-container__balance-label">Your Balance</h3>
-				<div class="balance-total" id="balance">$0.00</div>
+				<div class="top-info-container__balance-total" id="balance">$0.00</div>
 			</div>
-			<div class="assets-liabilities-container">
-				<div class="assets-liabilities-container__totals">
-					<div class="assets-liabilities-container__total-container">
-						<div class="assets-liabilities-container__heading">Income</div>
+			<div class="income-expense-container">
+				<div class="income-expense-container__totals">
+					<div class="income-expense-container__total-container">
+						<div class="income-expense-container__heading">Income</div>
 						<div id="positive-cash" class="total positive-cash">
 							<span class="balance-symbol">+&nbsp;</span>
-							<span class="assets-liabilities-container__amount">$0.00</span>
+							<span class="income-expense-container__amount">$0.00</span>
 						</div>
 					</div>
 
-					<div class="assets-liabilities-container__total-container">
-						<div class="assets-liabilities-container__heading">Expenses</div>
+					<div class="income-expense-container__total-container">
+						<div class="income-expense-container__heading">Expenses</div>
 						<div id="negative-cash" class="total negative-cash">
 							<span class="balance-symbol">-&nbsp;</span
-							><span class="assets-liabilities-container__amount">$0.00</span>
+							><span class="income-expense-container__amount">$0.00</span>
 						</div>
 					</div>
 				</div>
@@ -37,7 +37,7 @@
 			<div class="history-list-container">
 				<h3 class="secondary-heading">History</h3>
 				<ul id="history-list" class="history-list">
-					<li class="history-list-item negative">
+					<li class="history-list-item negative" tabindex="-1">
 						<span class="history-list-item__text">
 							<span class="history-list-item__amount">$400</span>
 							<span class="history-list-item__label">Cash</span>
@@ -81,7 +81,7 @@
 						<input
 							type="number"
 							class="transaction-input__amount"
-							id="transaction-input__amount"
+							id="transaction-input-amount"
 							placeholder="Enter amount..."
 							step="any"
 						/>

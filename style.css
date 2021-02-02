@@ -117,13 +117,13 @@ h6 {
 	margin: 3rem 0 0rem 0;
 }
 
-.balance-total {
+.top-info-container__balance-total {
 	font-family: "MuseoModerno", "Open Sans";
 	font-size: 4rem;
 	padding: 1rem 0 3rem 0;
 }
 
-.assets-liabilities-container {
+.income-expense-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -132,13 +132,13 @@ h6 {
 	text-align: center;
 }
 
-.assets-liabilities-container__heading {
+.income-expense-container__heading {
 	font-size: 1.5rem;
 	padding-bottom: 1rem;
 	text-transform: uppercase;
 }
 
-.assets-liabilities-container__totals {
+.income-expense-container__totals {
 	display: flex;
 	width: 80%;
 	margin: 0.5rem 0 3rem 0;
@@ -146,7 +146,7 @@ h6 {
 	box-shadow: var(--box-shadow);
 }
 
-.assets-liabilities-container__total-container {
+.income-expense-container__total-container {
 	width: clamp(8rem, 50%, 25rem);
 	height: clamp(10rem, 12rem, 16rem);
 	margin: 0.2rem;
@@ -190,7 +190,9 @@ h6 {
 
 .history-list {
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
+	align-items: center;
 	width: 100%;
 	padding: 0;
 	list-style: none;
@@ -201,6 +203,7 @@ h6 {
 	display: flex;
 	justify-content: space-between;
 	width: clamp(20rem, 80%, 90%);
+	margin: 0.3rem;
 	background: var(--light-1-t-2);
 	box-shadow: var(--box-shadow);
 	transition: opacity 0.3s ease-in-out;
@@ -229,14 +232,6 @@ h6 {
 
 .negative {
 	border: 3px solid var(--negative-2);
-}
-
-.negative .history-list-item__amount {
-	text-decoration: underline;
-}
-
-.positive .history-list-item__amount {
-	text-decoration: overline;
 }
 
 .delete-btn {
@@ -358,4 +353,9 @@ h6 {
 	background: hsla(0, 0%, 0%, 0.8);
 	color: white;
 	transform: scale(0.98);
+}
+
+/* Toggle classes */
+.visible {
+	opacity: 1;
 }
