@@ -46,6 +46,19 @@ const dummyTransactions = [
 
 let transactions = dummyTransactions;
 
+function handleTransactionSignChange(event) {
+	console.log(event.target);
+	console.log(transactionButtonPositive);
+	if (event.target === transactionButtonPositive) {
+		transactionInputAmount.value = transactionInputAmount.value.replace(
+			"-",
+			""
+		);
+	} else if (event.target === transactionButtonNegative) {
+		transactionInputAmount.value = 0 - transactionInputAmount.value;
+	}
+}
+
 function processTransaction(transaction) {
 	/* Detect positive/negative transaction sign and generate HTML list item */
 	const sign = transaction.amount > 0 ? "+" : "-";
@@ -73,6 +86,7 @@ function renderTransaction(transaction) {
 	item.innerHTML = newTransaction.item;
 	historyList.appendChild(item);
 
+	/* Add event listeners for mouse/focus events */
 	item.addEventListener("mouseover", handleItemInteraction);
 	item.addEventListener("mouseout", handleItemInteraction);
 	item.addEventListener("click", handleItemInteraction);
@@ -105,7 +119,12 @@ function handleItemInteraction(event) {
 	}
 }
 
-renderTransactionList(dummyTransactions);
+function init() {
+	historyList.innerHTML = "";
+	renderTransactionList(dummyTransactions);
+}
+
+init();
 
 /* Add event listeners to each history list item */
 for (item of historyListItems) {
@@ -114,3 +133,12 @@ for (item of historyListItems) {
 	item.addEventListener("click", handleItemInteraction);
 	item.addEventListener("focusout", handleItemInteraction);
 }
+
+transactionButtonPositive.addEventListener(
+	"click",
+	handleTransactionSignChange
+);
+transactionButtonNegative.addEventListener(
+	"click",
+	handleTransactionSignChange
+);
