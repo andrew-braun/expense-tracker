@@ -12,7 +12,9 @@
 			<div class="top-info-container">
 				<h1 class="primary-heading" id="main-heading">Expense Tracker</h1>
 				<h3 class="top-info-container__balance-label">Your Balance</h3>
-				<div class="top-info-container__balance-total" id="balance">$0.00</div>
+				<div class="top-info-container__balance-total">
+					$<span id="balance">0.00</span>
+				</div>
 			</div>
 			<div class="income-expense-container">
 				<div class="income-expense-container__totals">
@@ -20,7 +22,9 @@
 						<div class="income-expense-container__heading">Income</div>
 						<div id="positive-cash" class="total positive-cash">
 							<span class="balance-symbol">+&nbsp;</span>
-							<span class="income-expense-container__amount">$0.00</span>
+							<span class="income-expense-container__amount"
+								>$<span id="income-amount">0.00</span></span
+							>
 						</div>
 					</div>
 
@@ -28,7 +32,9 @@
 						<div class="income-expense-container__heading">Expenses</div>
 						<div id="negative-cash" class="total negative-cash">
 							<span class="balance-symbol">-&nbsp;</span
-							><span class="income-expense-container__amount">$0.00</span>
+							><span class="income-expense-container__amount"
+								>$<span id="expense-amount">0.00</span></span
+							>
 						</div>
 					</div>
 				</div>

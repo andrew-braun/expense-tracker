@@ -1,10 +1,6 @@
 const balance = document.querySelector("#balance");
-const positiveCash = document.querySelector(
-	"#positive-cash .income-expense-container__amount"
-);
-const negativeCash = document.querySelector(
-	"#negative-cash .income-expense-container__amount"
-);
+const positiveCash = document.querySelector("#income-amount");
+const negativeCash = document.querySelector("#expense-amount");
 
 const historyList = document.querySelector("#history-list");
 const historyListItems = document.querySelectorAll(".history-list-item");
@@ -22,6 +18,14 @@ const transactionInputAmount = document.querySelector(
 const transactionSubmit = document.querySelector(".transaction-submit-button");
 
 /* State management */
+const state = {
+	currentBalance: Number.parseFloat(balance.innerText),
+	currentIncome: Number.parseFloat(positiveCash.innerText),
+	currentExpense: Number.parseFloat(negativeCash.innerText),
+};
+
+console.log(state);
+
 const dummyTransactions = [
 	{
 		id: 1,
@@ -48,8 +52,6 @@ const dummyTransactions = [
 let transactions = dummyTransactions;
 
 function handleTransactionSignChange(event) {
-	console.log(event.target);
-	console.log(transactionButtonPositive);
 	if (event.target === transactionButtonPositive) {
 		transactionInputAmount.value = transactionInputAmount.value.replace(
 			"-",
@@ -61,8 +63,17 @@ function handleTransactionSignChange(event) {
 }
 
 function processTransaction(transaction) {
+	/* Update state with transaction value */
 	/* Detect positive/negative transaction sign and generate HTML list item */
 	const sign = transaction.amount > 0 ? "+" : "-";
+	console.log(transaction.amount);
+	state.currentBalance += Number.parseFloat(transaction.amount);
+	if (sign === "+") {
+		state.currentIncome += Number.parseFloat(transaction.amount);
+	} else if (sign === "-") {
+		state.currentExpense += Number.parseFloat(transaction.amount);
+	}
+
 	const newTransactionListItem = `
         <span class="history-list-item__text">
             <span class="history-list-item__amount">${sign} ${Math.abs(
@@ -92,8 +103,6 @@ function renderTransaction(transaction) {
 	item.addEventListener("mouseout", handleItemInteraction);
 	item.addEventListener("click", handleItemInteraction);
 	item.addEventListener("focusout", handleItemInteraction);
-
-	console.log(item);
 }
 
 function renderTransactionList(transactionList) {
@@ -101,6 +110,48 @@ function renderTransactionList(transactionList) {
 		renderTransaction(transaction);
 	});
 }
+
+function resetAddTransaction() {
+	transactionInputText.value = "";
+	transactionInputAmount.value = 0;
+}
+
+function handleTransactionSubmit(event) {
+	/* Build a transaction object, add to local storage, and render it to the DOM */
+
+	const transactionObject = {
+		description: transactionInputText.value,
+		amount: transactionInputAmount.value,
+	};
+
+	renderTransaction(transactionObject);
+
+	resetAddTransaction();
+
+	updateValues();
+}
+
+function setBalanceState() {
+	state.currentBalance = Number.parseFloat(balance.innerText);
+	state.currentIncome = Number.parseFloat(positiveCash.innerText);
+	state.currentExpense = Number.parseFloat(negativeCash.innerText);
+}
+
+function updateValues() {
+	console.log(state);
+	balance.innerText = state.currentBalance.toFixed(2);
+	positiveCash.innerText = state.currentIncome.toFixed(2);
+	negativeCash.innerText = state.currentExpense.toFixed(2);
+}
+
+function init() {
+	historyList.innerHTML = "";
+	resetAddTransaction();
+	renderTransactionList(dummyTransactions);
+	updateValues();
+}
+
+init();
 
 function handleItemInteraction(event) {
 	/* Handle any interaction with history list item */
@@ -119,31 +170,6 @@ function handleItemInteraction(event) {
 		deleteButton.classList.remove("visible");
 	}
 }
-
-function init() {
-	historyList.innerHTML = "";
-	resetAddTransaction();
-	renderTransactionList(dummyTransactions);
-}
-
-function resetAddTransaction() {
-	transactionInputText.value = "";
-	transactionInputAmount.value = 0;
-}
-function handleTransactionSubmit(event) {
-	/* Build a transaction object, add to local storage, and render it to the DOM */
-
-	const transactionObject = {
-		description: transactionInputText.value,
-		amount: transactionInputAmount.value,
-	};
-
-	renderTransaction(transactionObject);
-
-	resetAddTransaction();
-}
-
-init();
 
 /* Add event listeners to each history list item */
 for (item of historyListItems) {
