@@ -65,9 +65,12 @@ h6 {
 }
 
 .secondary-heading {
+	width: 80%;
 	margin-top: 2rem;
 	margin-bottom: 1.5rem;
-	font-size: 2.5rem;
+	padding-left: 1rem;
+	border-bottom: 1px solid hsla(0, 0%, 0%, 0.5);
+	font-size: 2.2rem;
 }
 
 .btn {
@@ -88,10 +91,10 @@ h6 {
 	width: clamp(28rem, 60rem, 85vw);
 	border-radius: 1rem;
 	background: var(--light-1-t);
+	overflow: hidden;
 }
 
 /* Main info section */
-
 .top-info-container {
 	display: flex;
 	flex-direction: column;
@@ -144,7 +147,7 @@ h6 {
 }
 
 .assets-liabilities-container__total-container {
-	width: clamp(12rem, 50%, 25rem);
+	width: clamp(8rem, 50%, 25rem);
 	height: clamp(10rem, 12rem, 16rem);
 	margin: 0.2rem;
 }
@@ -154,7 +157,7 @@ h6 {
 	justify-content: center;
 	align-items: center;
 	height: clamp(6rem, 8rem, 12rem);
-	padding: 1rem;
+	padding: clamp(0.5rem, 1rem, 1.5rem);
 	border-radius: 0.3rem;
 	background: var(--light-1-t-2);
 	font-size: 2.5rem;
@@ -181,6 +184,10 @@ h6 {
 	background: var(--accent-1-t);
 }
 
+.history-list-container .secondary-heading {
+	color: white;
+}
+
 .history-list {
 	display: flex;
 	justify-content: center;
@@ -194,7 +201,13 @@ h6 {
 	display: flex;
 	justify-content: space-between;
 	width: clamp(20rem, 80%, 90%);
-	background: var(--light-1-t);
+	background: var(--light-1-t-2);
+	box-shadow: var(--box-shadow);
+	transition: opacity 0.3s ease-in-out;
+}
+
+.history-list-item:hover {
+	opacity: 0.8;
 }
 
 .history-list-item__text {
@@ -209,32 +222,13 @@ h6 {
 	font-weight: 800;
 }
 
-.delete-btn {
-	display: block;
-	min-width: 4rem;
-	border: 0;
-	background: var(--light-1-t);
-	font-size: 2rem;
-	transition-duration: 0.3s;
-	transition-timing-function: ease-in-out;
-}
-
-.delete-btn:hover {
-	cursor: pointer;
-	opacity: 0.8;
-	background: var(--negative-2);
-
-	font-size: 150%;
-}
-
 .positive {
-	background: var(--positive-2);
-	color: white;
+	border: 3px solid var(--positive-2);
+	border-radius: 0.3rem;
 }
 
 .negative {
-	border: 1px solid var(--negative-2);
-	color: white;
+	border: 3px solid var(--negative-2);
 }
 
 .negative .history-list-item__amount {
@@ -243,6 +237,24 @@ h6 {
 
 .positive .history-list-item__amount {
 	text-decoration: overline;
+}
+
+.delete-btn {
+	display: block;
+	min-width: 4rem;
+	border: 0;
+	background: var(--light-1-t);
+	font-size: 2rem;
+	transition-duration: 0.3s;
+	transition-timing-function: ease-in-out;
+	font-size: 2.5rem;
+	opacity: 0;
+}
+
+.delete-btn:hover {
+	cursor: pointer;
+	opacity: 0.8;
+	background: var(--negative-2);
 }
 
 .form-control {
@@ -270,6 +282,11 @@ h6 {
 	width: 100%;
 	text-align: center;
 	box-shadow: var(--box-shadow);
+}
+
+.new-transaction-container .secondary-heading {
+	margin-left: 3rem;
+	text-align: left;
 }
 
 .transaction-input-form {
