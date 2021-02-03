@@ -36,7 +36,7 @@ const dummyTransactions = [
 	{
 		id: 2,
 		description: "Heist",
-		amount: -1000,
+		amount: 1000,
 	},
 	{
 		id: 3,
@@ -50,7 +50,7 @@ const dummyTransactions = [
 	},
 ];
 
-let transactions = dummyTransactions;
+let transactions = [...dummyTransactions];
 
 /* Individual transaction processing */
 function processTransaction(transaction) {
@@ -77,7 +77,7 @@ function processTransaction(transaction) {
         </span>
         <button class="delete-btn">X</button>
 `;
-	return { sign: sign, item: newTransactionListItem };
+	return { sign: sign, item: newTransactionListItem, id: transaction.id };
 }
 
 function renderTransaction(transaction) {
@@ -87,6 +87,7 @@ function renderTransaction(transaction) {
 	item.tabIndex = "-1";
 	item.classList.add("history-list-item");
 	item.classList.add(newTransaction.sign === "+" ? "positive" : "negative");
+	item.dataset.txid = newTransaction.id;
 	item.innerHTML = newTransaction.item;
 	historyList.appendChild(item);
 
@@ -95,6 +96,7 @@ function renderTransaction(transaction) {
 	item.addEventListener("mouseout", handleItemInteraction);
 	item.addEventListener("click", handleItemInteraction);
 	item.addEventListener("focusout", handleItemInteraction);
+	item.querySelector(".delete-btn").addEventListener("click", handleItemDelete);
 }
 
 function resetAddTransaction() {
@@ -134,12 +136,15 @@ function handleTransactionSubmit(event) {
 	const transactionObject = {
 		description: transactionInputText.value,
 		amount: transactionInputAmount.value,
+		id: transactions.length + 1,
 	};
 
 	renderTransaction(transactionObject);
 
 	resetAddTransaction();
 
+	transactions.push(transactionObject);
+	console.log(transactions);
 	updateValues();
 }
 
@@ -150,7 +155,11 @@ function handleTransactionSignChange(event) {
 			""
 		);
 	} else if (event.target === transactionButtonNegative) {
-		transactionInputAmount.value = 0 - transactionInputAmount.value;
+		if (transactionInputAmount.value === "0") {
+			transactionInputAmount.value = (0 - 0.1).toFixed();
+		} else {
+			transactionInputAmount.value = 0 - transactionInputAmount.value;
+		}
 	}
 }
 
@@ -160,7 +169,6 @@ function handleItemInteraction(event) {
 	const deleteButton = listItem.querySelector(".delete-btn");
 
 	/* Show/hide delete button on hover/focus events */
-
 	if (event.type === "mouseover") {
 		deleteButton.classList.add("visible");
 	} else if (event.type === "mouseout" && document.activeElement !== listItem) {
@@ -172,12 +180,30 @@ function handleItemInteraction(event) {
 	}
 }
 
+function handleItemDelete(event) {
+	const listItem = event.target.closest(".history-list-item");
+
+	const tx = transactions.find((tx) => tx.id === Number(listItem.dataset.txid));
+
+	state.currentBalance -= tx.amount;
+	if (tx.amount > 0) {
+		state.currentIncome -= tx.amount;
+	} else if (tx.amount < 0) {
+		state.currentExpense -= tx.amount;
+	}
+
+	updateValues();
+
+	listItem.remove();
+}
+
 /* Add event listeners to each history list item */
 for (item of historyListItems) {
 	item.addEventListener("mouseover", handleItemInteraction);
 	item.addEventListener("mouseout", handleItemInteraction);
 	item.addEventListener("click", handleItemInteraction);
 	item.addEventListener("focusout", handleItemInteraction);
+	item.querySelector(".delete-btn").addEventListener("click", handleItemDelete);
 }
 
 transactionButtonPositive.addEventListener(
