@@ -25,32 +25,34 @@ const state = {
 	currentExpense: Number.parseFloat(negativeCash.innerText),
 };
 
-console.log(state);
+const localStorageTransactions = JSON.parse(
+	localStorage.getItem("transaction")
+);
 
-const dummyTransactions = [
-	{
-		id: 1,
-		description: "Puppy",
-		amount: -100,
-	},
-	{
-		id: 2,
-		description: "Heist",
-		amount: 1000,
-	},
-	{
-		id: 3,
-		description: "Vet Bills",
-		amount: -400,
-	},
-	{
-		id: 4,
-		description: "Hijinks",
-		amount: 75,
-	},
-];
+// const dummyTransactions = [
+// 	{
+// 		id: 1,
+// 		description: "Puppy",
+// 		amount: -100,
+// 	},
+// 	{
+// 		id: 2,
+// 		description: "Heist",
+// 		amount: 1000,
+// 	},
+// 	{
+// 		id: 3,
+// 		description: "Vet Bills",
+// 		amount: -400,
+// 	},
+// 	{
+// 		id: 4,
+// 		description: "Hijinks",
+// 		amount: 75,
+// 	},
+// ];
 
-let transactions = [...dummyTransactions];
+let transactions = JSON.parse(localStorage.getItem("transactions")) ?? [];
 
 /* Individual transaction processing */
 function processTransaction(transaction) {
@@ -106,6 +108,7 @@ function resetAddTransaction() {
 
 function renderTransactionList(transactionList) {
 	/* Render lis tof multiple transactions (on refresh/setup) */
+	console.log(transactionList);
 	transactionList.map((transaction) => {
 		renderTransaction(transaction);
 	});
@@ -118,12 +121,18 @@ function updateValues() {
 	balance.innerText = Math.abs(state.currentBalance).toFixed(2);
 	positiveCash.innerText = state.currentIncome.toFixed(2);
 	negativeCash.innerText = Math.abs(state.currentExpense).toFixed(2);
+
+	updateLocalStorage();
+}
+
+function updateLocalStorage() {
+	localStorage.setItem("transactions", JSON.stringify(transactions));
 }
 
 function init() {
 	historyList.innerHTML = "";
 	resetAddTransaction();
-	renderTransactionList(dummyTransactions);
+	renderTransactionList(transactions);
 	updateValues();
 }
 
@@ -132,20 +141,25 @@ init();
 /* Handlers */
 function handleTransactionSubmit(event) {
 	/* Build a transaction object, add to local storage, and render it to the DOM */
+	event.preventDefault();
 
-	const transactionObject = {
-		description: transactionInputText.value,
-		amount: transactionInputAmount.value,
-		id: transactions.length + 1,
-	};
+	if (transactionInputAmount.value.trim() === "0") {
+		console.log("Please enter an amount!");
+	} else {
+		const transactionObject = {
+			description: transactionInputText.value,
+			amount: transactionInputAmount.value,
+			id: transactions.length + 1,
+		};
 
-	renderTransaction(transactionObject);
+		renderTransaction(transactionObject);
 
-	resetAddTransaction();
+		transactions.push(transactionObject);
 
-	transactions.push(transactionObject);
-	console.log(transactions);
-	updateValues();
+		updateValues();
+
+		resetAddTransaction();
+	}
 }
 
 function handleTransactionSignChange(event) {
@@ -191,6 +205,8 @@ function handleItemDelete(event) {
 	} else if (tx.amount < 0) {
 		state.currentExpense -= tx.amount;
 	}
+
+	transactions.splice(transactions.indexOf(tx), 1);
 
 	updateValues();
 
