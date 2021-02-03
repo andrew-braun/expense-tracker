@@ -115,7 +115,7 @@ function updateValues() {
 	balanceSign.innerText = state.currentBalance < 0 ? "-" : "";
 	balance.innerText = Math.abs(state.currentBalance).toFixed(2);
 	positiveCash.innerText = state.currentIncome.toFixed(2);
-	negativeCash.innerText = state.currentExpense.toFixed(2);
+	negativeCash.innerText = Math.abs(state.currentExpense).toFixed(2);
 }
 
 function init() {
