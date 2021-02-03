@@ -1,4 +1,5 @@
 const balance = document.querySelector("#balance");
+const balanceSign = document.querySelector("#balance-sign");
 const positiveCash = document.querySelector("#income-amount");
 const negativeCash = document.querySelector("#expense-amount");
 
@@ -35,38 +36,29 @@ const dummyTransactions = [
 	{
 		id: 2,
 		description: "Heist",
-		amount: 1000,
+		amount: -1000,
 	},
 	{
 		id: 3,
 		description: "Vet Bills",
-		amount: 400,
+		amount: -400,
 	},
 	{
 		id: 4,
 		description: "Hijinks",
-		amount: -75,
+		amount: 75,
 	},
 ];
 
 let transactions = dummyTransactions;
 
-function handleTransactionSignChange(event) {
-	if (event.target === transactionButtonPositive) {
-		transactionInputAmount.value = transactionInputAmount.value.replace(
-			"-",
-			""
-		);
-	} else if (event.target === transactionButtonNegative) {
-		transactionInputAmount.value = 0 - transactionInputAmount.value;
-	}
-}
-
+/* Individual transaction processing */
 function processTransaction(transaction) {
 	/* Update state with transaction value */
 	/* Detect positive/negative transaction sign and generate HTML list item */
 	const sign = transaction.amount > 0 ? "+" : "-";
-	console.log(transaction.amount);
+
+	/* Update state before rendering to minimize DOM changes when adding multiple transactions */
 	state.currentBalance += Number.parseFloat(transaction.amount);
 	if (sign === "+") {
 		state.currentIncome += Number.parseFloat(transaction.amount);
@@ -105,17 +97,37 @@ function renderTransaction(transaction) {
 	item.addEventListener("focusout", handleItemInteraction);
 }
 
-function renderTransactionList(transactionList) {
-	transactionList.map((transaction) => {
-		renderTransaction(transaction);
-	});
-}
-
 function resetAddTransaction() {
 	transactionInputText.value = "";
 	transactionInputAmount.value = 0;
 }
 
+function renderTransactionList(transactionList) {
+	/* Render lis tof multiple transactions (on refresh/setup) */
+	transactionList.map((transaction) => {
+		renderTransaction(transaction);
+	});
+}
+
+function updateValues() {
+	/* Use values in state to render balance, income, and expenses */
+	console.log(state);
+	balanceSign.innerText = state.currentBalance < 0 ? "-" : "";
+	balance.innerText = Math.abs(state.currentBalance).toFixed(2);
+	positiveCash.innerText = state.currentIncome.toFixed(2);
+	negativeCash.innerText = state.currentExpense.toFixed(2);
+}
+
+function init() {
+	historyList.innerHTML = "";
+	resetAddTransaction();
+	renderTransactionList(dummyTransactions);
+	updateValues();
+}
+
+init();
+
+/* Handlers */
 function handleTransactionSubmit(event) {
 	/* Build a transaction object, add to local storage, and render it to the DOM */
 
@@ -131,27 +143,16 @@ function handleTransactionSubmit(event) {
 	updateValues();
 }
 
-function setBalanceState() {
-	state.currentBalance = Number.parseFloat(balance.innerText);
-	state.currentIncome = Number.parseFloat(positiveCash.innerText);
-	state.currentExpense = Number.parseFloat(negativeCash.innerText);
+function handleTransactionSignChange(event) {
+	if (event.target === transactionButtonPositive) {
+		transactionInputAmount.value = transactionInputAmount.value.replace(
+			"-",
+			""
+		);
+	} else if (event.target === transactionButtonNegative) {
+		transactionInputAmount.value = 0 - transactionInputAmount.value;
+	}
 }
-
-function updateValues() {
-	console.log(state);
-	balance.innerText = state.currentBalance.toFixed(2);
-	positiveCash.innerText = state.currentIncome.toFixed(2);
-	negativeCash.innerText = state.currentExpense.toFixed(2);
-}
-
-function init() {
-	historyList.innerHTML = "";
-	resetAddTransaction();
-	renderTransactionList(dummyTransactions);
-	updateValues();
-}
-
-init();
 
 function handleItemInteraction(event) {
 	/* Handle any interaction with history list item */
